@@ -4,6 +4,7 @@ import (
 	"context"
 	pb "github.com/HuiguoRose/shippy-service-user/proto/user"
 	"github.com/jinzhu/gorm"
+	uuid "github.com/satori/go.uuid"
 )
 
 type User struct {
@@ -34,6 +35,11 @@ func MarshalUser(user *pb.User) *User {
 	}
 }
 
+func (user *User) BeforeCreate(scope *gorm.Scope) error {
+	id := uuid.NewV4()
+	return scope.SetColumn("Id", id.String())
+}
+
 type Users []*User
 
 func UnmarshalUserCollection(users Users) []*pb.User {
@@ -49,6 +55,7 @@ type repository interface {
 	Get(ctx context.Context, Id string) (*User, error)
 	GetAll(ctx context.Context) (Users, error)
 	GetByEmailAndPassword(ctx context.Context, user *User) (*User, error)
+	GetByEmail(ctx context.Context, user *User) (*User, error)
 }
 type UserRepository struct {
 	db *gorm.DB
@@ -87,6 +94,13 @@ func (repository *UserRepository) GetAll(ctx context.Context) (Users, error) {
 }
 
 func (repository *UserRepository) GetByEmailAndPassword(ctx context.Context, user *User) (*User, error) {
+	if err := repository.db.First(&user).Error; err != nil {
+		return nil, err
+	}
+	return user, nil
+}
+
+func (repository *UserRepository) GetByEmail(ctx context.Context, user *User) (*User, error) {
 	if err := repository.db.First(&user).Error; err != nil {
 		return nil, err
 	}

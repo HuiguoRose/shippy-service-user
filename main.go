@@ -2,10 +2,10 @@ package main
 
 import (
 	pb "github.com/HuiguoRose/shippy-service-user/proto/user"
-	"github.com/micro/go-micro"
+	micro "github.com/micro/go-micro/v2"
+	_ "github.com/micro/go-plugins/broker/nats/v2"
 	"log"
 )
-
 
 func main() {
 	// Create a new service. Optionally include some options here.
@@ -33,10 +33,14 @@ func main() {
 	db.AutoMigrate(User{})
 
 	repository := &UserRepository{db}
+	tokenService := &TokenService{}
+	pubSub := srv.Server().Options().Broker
 
 	// Register handler
 	pb.RegisterUserServiceHandler(srv.Server(), &handler{
-		repository: repository,
+		repo:         repository,
+		tokenService: tokenService,
+		PubSub:       pubSub,
 	})
 
 	// Run the server

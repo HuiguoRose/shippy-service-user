@@ -9,12 +9,6 @@ import (
 	math "math"
 )
 
-import (
-	client "github.com/micro/go-micro/client"
-	server "github.com/micro/go-micro/server"
-	context "golang.org/x/net/context"
-)
-
 // Reference imports to suppress errors if they are not otherwise used.
 var _ = proto.Marshal
 var _ = fmt.Errorf
@@ -37,62 +31,62 @@ type User struct {
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (user *User) Reset()         { *user = User{} }
-func (user *User) String() string { return proto.CompactTextString(user) }
-func (*User) ProtoMessage()       {}
+func (m *User) Reset()         { *m = User{} }
+func (m *User) String() string { return proto.CompactTextString(m) }
+func (*User) ProtoMessage()    {}
 func (*User) Descriptor() ([]byte, []int) {
 	return fileDescriptor_9b283a848145d6b7, []int{0}
 }
 
-func (user *User) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_User.Unmarshal(user, b)
+func (m *User) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_User.Unmarshal(m, b)
 }
-func (user *User) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_User.Marshal(b, user, deterministic)
+func (m *User) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_User.Marshal(b, m, deterministic)
 }
-func (user *User) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_User.Merge(user, src)
+func (m *User) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_User.Merge(m, src)
 }
-func (user *User) XXX_Size() int {
-	return xxx_messageInfo_User.Size(user)
+func (m *User) XXX_Size() int {
+	return xxx_messageInfo_User.Size(m)
 }
-func (user *User) XXX_DiscardUnknown() {
-	xxx_messageInfo_User.DiscardUnknown(user)
+func (m *User) XXX_DiscardUnknown() {
+	xxx_messageInfo_User.DiscardUnknown(m)
 }
 
 var xxx_messageInfo_User proto.InternalMessageInfo
 
-func (user *User) GetId() string {
-	if user != nil {
-		return user.Id
+func (m *User) GetId() string {
+	if m != nil {
+		return m.Id
 	}
 	return ""
 }
 
-func (user *User) GetName() string {
-	if user != nil {
-		return user.Name
+func (m *User) GetName() string {
+	if m != nil {
+		return m.Name
 	}
 	return ""
 }
 
-func (user *User) GetCompany() string {
-	if user != nil {
-		return user.Company
+func (m *User) GetCompany() string {
+	if m != nil {
+		return m.Company
 	}
 	return ""
 }
 
-func (user *User) GetEmail() string {
-	if user != nil {
-		return user.Email
+func (m *User) GetEmail() string {
+	if m != nil {
+		return m.Email
 	}
 	return ""
 }
 
-func (user *User) GetPassword() string {
-	if user != nil {
-		return user.Password
+func (m *User) GetPassword() string {
+	if m != nil {
+		return m.Password
 	}
 	return ""
 }
@@ -319,125 +313,4 @@ var fileDescriptor_9b283a848145d6b7 = []byte{
 	0x08, 0x96, 0x5b, 0xf3, 0xfc, 0xe5, 0x60, 0x97, 0x97, 0x8b, 0x4b, 0x7b, 0x78, 0x0e, 0xe3, 0x07,
 	0xdb, 0x4b, 0x6e, 0xc8, 0x75, 0x79, 0xb8, 0x3f, 0x12, 0x3f, 0x45, 0xfc, 0xcf, 0x5d, 0x7e, 0x04,
 	0x00, 0x00, 0xff, 0xff, 0xa3, 0x97, 0x1d, 0x92, 0x8c, 0x02, 0x00, 0x00,
-}
-
-// Reference imports to suppress errors if they are not otherwise used.
-var _ context.Context
-var _ client.Option
-var _ server.Option
-
-// Client API for UserService service
-
-type UserServiceClient interface {
-	Create(ctx context.Context, in *User, opts ...client.CallOption) (*Response, error)
-	Get(ctx context.Context, in *User, opts ...client.CallOption) (*Response, error)
-	GetAll(ctx context.Context, in *Request, opts ...client.CallOption) (*Response, error)
-	Auth(ctx context.Context, in *User, opts ...client.CallOption) (*Token, error)
-	ValidateToken(ctx context.Context, in *Token, opts ...client.CallOption) (*Token, error)
-}
-
-type userServiceClient struct {
-	c           client.Client
-	serviceName string
-}
-
-func NewUserServiceClient(serviceName string, c client.Client) UserServiceClient {
-	if c == nil {
-		c = client.NewClient()
-	}
-	if len(serviceName) == 0 {
-		serviceName = "user"
-	}
-	return &userServiceClient{
-		c:           c,
-		serviceName: serviceName,
-	}
-}
-
-func (c *userServiceClient) Create(ctx context.Context, in *User, opts ...client.CallOption) (*Response, error) {
-	req := c.c.NewRequest(c.serviceName, "UserService.Create", in)
-	out := new(Response)
-	err := c.c.Call(ctx, req, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *userServiceClient) Get(ctx context.Context, in *User, opts ...client.CallOption) (*Response, error) {
-	req := c.c.NewRequest(c.serviceName, "UserService.Get", in)
-	out := new(Response)
-	err := c.c.Call(ctx, req, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *userServiceClient) GetAll(ctx context.Context, in *Request, opts ...client.CallOption) (*Response, error) {
-	req := c.c.NewRequest(c.serviceName, "UserService.GetAll", in)
-	out := new(Response)
-	err := c.c.Call(ctx, req, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *userServiceClient) Auth(ctx context.Context, in *User, opts ...client.CallOption) (*Token, error) {
-	req := c.c.NewRequest(c.serviceName, "UserService.Auth", in)
-	out := new(Token)
-	err := c.c.Call(ctx, req, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *userServiceClient) ValidateToken(ctx context.Context, in *Token, opts ...client.CallOption) (*Token, error) {
-	req := c.c.NewRequest(c.serviceName, "UserService.ValidateToken", in)
-	out := new(Token)
-	err := c.c.Call(ctx, req, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-// Server API for UserService service
-
-type UserServiceHandler interface {
-	Create(context.Context, *User, *Response) error
-	Get(context.Context, *User, *Response) error
-	GetAll(context.Context, *Request, *Response) error
-	Auth(context.Context, *User, *Token) error
-	ValidateToken(context.Context, *Token, *Token) error
-}
-
-func RegisterUserServiceHandler(s server.Server, hdlr UserServiceHandler, opts ...server.HandlerOption) {
-	s.Handle(s.NewHandler(&UserService{hdlr}, opts...))
-}
-
-type UserService struct {
-	UserServiceHandler
-}
-
-func (h *UserService) Create(ctx context.Context, in *User, out *Response) error {
-	return h.UserServiceHandler.Create(ctx, in, out)
-}
-
-func (h *UserService) Get(ctx context.Context, in *User, out *Response) error {
-	return h.UserServiceHandler.Get(ctx, in, out)
-}
-
-func (h *UserService) GetAll(ctx context.Context, in *Request, out *Response) error {
-	return h.UserServiceHandler.GetAll(ctx, in, out)
-}
-
-func (h *UserService) Auth(ctx context.Context, in *User, out *Token) error {
-	return h.UserServiceHandler.Auth(ctx, in, out)
-}
-
-func (h *UserService) ValidateToken(ctx context.Context, in *Token, out *Token) error {
-	return h.UserServiceHandler.ValidateToken(ctx, in, out)
 }

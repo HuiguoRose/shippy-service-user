@@ -12,7 +12,7 @@ COPY . .
 
 #RUN go env -w GOPROXY=https://goproxy.cn,direct
 #RUN go mod download
-RUN CGO_ENABLED=0 GOOS=linux go build -mod=vendor -a -installsuffix cgo -o shippy-service-consignment
+RUN CGO_ENABLED=0 GOOS=linux go build -mod=vendor -a -installsuffix cgo -o shippy-service-user
 
 # Run container
 FROM alpine:latest
