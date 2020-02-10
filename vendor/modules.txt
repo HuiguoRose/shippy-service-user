@@ -24,9 +24,6 @@ github.com/coreos/pkg/capnslog
 github.com/cpuguy83/go-md2man/v2/md2man
 # github.com/dgrijalva/jwt-go v3.2.0+incompatible
 github.com/dgrijalva/jwt-go
-# github.com/go-log/log v0.1.0
-github.com/go-log/log
-github.com/go-log/log/log
 # github.com/go-stack/stack v1.8.0
 github.com/go-stack/stack
 # github.com/gogo/protobuf v1.2.1
@@ -66,30 +63,6 @@ github.com/lib/pq/oid
 github.com/lib/pq/scram
 # github.com/micro/cli/v2 v2.1.1
 github.com/micro/cli/v2
-# github.com/micro/go-micro v1.18.0
-github.com/micro/go-micro/broker
-github.com/micro/go-micro/client
-github.com/micro/go-micro/client/pool
-github.com/micro/go-micro/client/selector
-github.com/micro/go-micro/codec
-github.com/micro/go-micro/codec/bytes
-github.com/micro/go-micro/codec/grpc
-github.com/micro/go-micro/codec/json
-github.com/micro/go-micro/codec/jsonrpc
-github.com/micro/go-micro/codec/proto
-github.com/micro/go-micro/codec/protorpc
-github.com/micro/go-micro/errors
-github.com/micro/go-micro/metadata
-github.com/micro/go-micro/registry
-github.com/micro/go-micro/registry/cache
-github.com/micro/go-micro/server
-github.com/micro/go-micro/transport
-github.com/micro/go-micro/util/addr
-github.com/micro/go-micro/util/buf
-github.com/micro/go-micro/util/log
-github.com/micro/go-micro/util/net
-github.com/micro/go-micro/util/socket
-github.com/micro/go-micro/util/tls
 # github.com/micro/go-micro/v2 v2.0.0
 github.com/micro/go-micro/v2
 github.com/micro/go-micro/v2/broker
@@ -161,8 +134,6 @@ github.com/micro/go-micro/v2/util/ring
 github.com/micro/go-micro/v2/util/socket
 github.com/micro/go-micro/v2/util/tls
 github.com/micro/go-micro/v2/util/wrapper
-# github.com/micro/go-plugins/broker/nats/v2 v2.0.1
-github.com/micro/go-plugins/broker/nats/v2
 # github.com/micro/mdns v0.3.0
 github.com/micro/mdns
 # github.com/miekg/dns v1.1.27
@@ -258,7 +229,6 @@ golang.org/x/lint
 golang.org/x/lint/golint
 # golang.org/x/net v0.0.0-20200202094626-16171245cfb2
 golang.org/x/net/bpf
-golang.org/x/net/context
 golang.org/x/net/http/httpguts
 golang.org/x/net/http2
 golang.org/x/net/http2/h2c

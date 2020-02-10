@@ -3,7 +3,6 @@ package main
 import (
 	pb "github.com/HuiguoRose/shippy-service-user/proto/user"
 	"github.com/micro/go-micro/v2"
-	_ "github.com/micro/go-plugins/broker/nats/v2"
 	"log"
 )
 
@@ -34,18 +33,22 @@ func main() {
 
 	repository := &UserRepository{db}
 	tokenService := &TokenService{}
-	pubSub := srv.Server().Options().Broker
-	if err := pubSub.Connect(); err != nil {
-		log.Fatal(err)
-	}
-	defer func() {
-		_ = pubSub.Disconnect()
-	}()
+
+	publisher := micro.NewEvent("user.created", srv.Client())
+
+
+	//pubSub := srv.Server().Options().Broker
+	//if err := pubSub.Connect(); err != nil {
+	//	log.Fatal(err)
+	//}
+	//defer func() {
+	//	_ = pubSub.Disconnect()
+	//}()
 	// Register handler
 	_ = pb.RegisterUserServiceHandler(srv.Server(), &handler{
 		repo:         repository,
 		tokenService: tokenService,
-		PubSub:       pubSub,
+		PubSub:       publisher,
 	})
 
 	// Run the server
