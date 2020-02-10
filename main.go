@@ -2,7 +2,7 @@ package main
 
 import (
 	pb "github.com/HuiguoRose/shippy-service-user/proto/user"
-	micro "github.com/micro/go-micro/v2"
+	"github.com/micro/go-micro/v2"
 	_ "github.com/micro/go-plugins/broker/nats/v2"
 	"log"
 )
@@ -37,7 +37,7 @@ func main() {
 	pubSub := srv.Server().Options().Broker
 
 	// Register handler
-	pb.RegisterUserServiceHandler(srv.Server(), &handler{
+	_ = pb.RegisterUserServiceHandler(srv.Server(), &handler{
 		repo:         repository,
 		tokenService: tokenService,
 		PubSub:       pubSub,
