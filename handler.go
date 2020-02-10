@@ -13,9 +13,9 @@ import (
 const topic = "user.created"
 
 type handler struct {
-	repo repository
+	repo         repository
 	tokenService AuthAble
-	PubSub broker.Broker
+	PubSub       broker.Broker
 }
 
 func (s *handler) Create(ctx context.Context, req *pb.User, res *pb.Response) error {
@@ -54,7 +54,12 @@ func (s *handler) GetAll(ctx context.Context, req *pb.Request, res *pb.Response)
 
 func (s *handler) Auth(ctx context.Context, req *pb.User, res *pb.Token) error {
 	log.Println("Logging in with:", req.Email, req.Password)
-	user, err := s.repo.GetByEmail(ctx, MarshalUser(req))
+	//hashedPass, err := bcrypt.GenerateFromPassword([]byte(req.Password), bcrypt.DefaultCost)
+	//if err != nil {
+	//	return err
+	//}
+	//req.Password = string(hashedPass)
+	user, err := s.repo.GetByEmail(ctx, req.Email)
 	log.Println(user)
 	if err != nil {
 		return err

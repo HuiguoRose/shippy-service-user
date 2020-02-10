@@ -35,7 +35,12 @@ func main() {
 	repository := &UserRepository{db}
 	tokenService := &TokenService{}
 	pubSub := srv.Server().Options().Broker
-
+	if err := pubSub.Connect(); err != nil {
+		log.Fatal(err)
+	}
+	defer func() {
+		_ = pubSub.Disconnect()
+	}()
 	// Register handler
 	_ = pb.RegisterUserServiceHandler(srv.Server(), &handler{
 		repo:         repository,

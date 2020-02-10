@@ -55,7 +55,7 @@ type repository interface {
 	Get(ctx context.Context, Id string) (*User, error)
 	GetAll(ctx context.Context) (Users, error)
 	GetByEmailAndPassword(ctx context.Context, user *User) (*User, error)
-	GetByEmail(ctx context.Context, user *User) (*User, error)
+	GetByEmail(ctx context.Context, email string) (*User, error)
 }
 type UserRepository struct {
 	db *gorm.DB
@@ -100,8 +100,9 @@ func (repository *UserRepository) GetByEmailAndPassword(ctx context.Context, use
 	return user, nil
 }
 
-func (repository *UserRepository) GetByEmail(ctx context.Context, user *User) (*User, error) {
-	if err := repository.db.First(&user).Error; err != nil {
+func (repository *UserRepository) GetByEmail(ctx context.Context, email string) (*User, error) {
+	var user = &User{Email: email}
+	if err := repository.db.First(user).Error; err != nil {
 		return nil, err
 	}
 	return user, nil
